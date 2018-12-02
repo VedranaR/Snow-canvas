@@ -38,6 +38,13 @@ let c = canvas.getContext("2d");
 //   c.stroke();
 // }
 
+let mouse = {
+  x: undefined;
+  y: undefined;
+};
+
+window.addEventListener("mousemove", event => {});
+
 //creating an object
 function Circle(x, y, dx, dy, radius) {
   this.x = x;
