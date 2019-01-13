@@ -43,7 +43,13 @@ let mouse = {
   y: undefined
 };
 
-window.addEventListener("mousemove", event => {});
+let maxRadius = 40;
+let minRadius = 2;
+
+window.addEventListener("mousemove", event => {
+  mouse.x = event.x;
+  mouse.y = event.y;
+});
 
 //creating an object
 function Circle(x, y, dx, dy, radius) {
@@ -75,6 +81,21 @@ function Circle(x, y, dx, dy, radius) {
     this.x += this.dx;
     this.y += this.dy;
 
+    //lets circles react to the mouse movement
+    if (
+      mouse.x - this.x < 50 &&
+      mouse.x - this.x > -50 &&
+      mouse.y - this.y < 50 &&
+      mouse.y - this.y > -50
+    ) {
+      if (this.radius < maxRadius) {
+        this.radius += 6;
+      }
+    } else if (this.radius > minRadius) {
+      this.radius -= 1;
+    }
+
+    //calls the draw function, so that outside this class you have to call only one
     this.draw();
   };
 }
@@ -82,12 +103,12 @@ function Circle(x, y, dx, dy, radius) {
 //empty array of circles
 let circleArray = [];
 
-for (let i = 0; i < 100; i++) {
-  let radius = 20;
+for (let i = 0; i < 600; i++) {
+  let radius = 2;
   let x = Math.random() * (innerWidth - radius * 2) + radius;
   let y = Math.random() * (innerHeight - radius * 2) + radius;
-  let dx = (Math.random() - 0.5) * 15; //dx is velocity of x movement
-  let dy = (Math.random() - 0.5) * 15; //dy is velocity of y movement
+  let dx = (Math.random() - 0.5) * 8; //dx is velocity of x movement
+  let dy = (Math.random() - 0.5) * 8; //dy is velocity of y movement
 
   //pushing the newly created circle with new random params into a circle array
   circleArray.push(new Circle(x, y, dx, dy, radius));
