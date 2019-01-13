@@ -43,13 +43,19 @@ let mouse = {
   y: undefined
 };
 
-let maxRadius = 40;
-let minRadius = 2;
+let maxRadius = 60;
 
 window.addEventListener("mousemove", event => {
   mouse.x = event.x;
   mouse.y = event.y;
 });
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+let colorArray = ["#ffaa33", "#aaff33", "#33aaff", "#aa33ff", "#ff33aa"];
 
 //creating an object
 function Circle(x, y, dx, dy, radius) {
@@ -58,6 +64,8 @@ function Circle(x, y, dx, dy, radius) {
   this.dx = dx;
   this.dy = dy;
   this.radius = radius;
+  this.minRadius = radius;
+  this.color = colorArray[Math.floor(Math.random() * colorArray.length)];
 
   //function that draws the circle according to the given params
   this.draw = function() {
@@ -66,7 +74,7 @@ function Circle(x, y, dx, dy, radius) {
     c.strokeStyle = "black";
     c.stroke();
     c.fill();
-    c.fillStyle = "rgba(0, 255, 0, 0.5)";
+    c.fillStyle = this.color;
   };
 
   //function that updates the location of a circle, creating movement
@@ -91,7 +99,7 @@ function Circle(x, y, dx, dy, radius) {
       if (this.radius < maxRadius) {
         this.radius += 6;
       }
-    } else if (this.radius > minRadius) {
+    } else if (this.radius > this.minRadius) {
       this.radius -= 1;
     }
 
@@ -103,8 +111,8 @@ function Circle(x, y, dx, dy, radius) {
 //empty array of circles
 let circleArray = [];
 
-for (let i = 0; i < 600; i++) {
-  let radius = 2;
+for (let i = 0; i < 800; i++) {
+  let radius = Math.random() * 3 + 1;
   let x = Math.random() * (innerWidth - radius * 2) + radius;
   let y = Math.random() * (innerHeight - radius * 2) + radius;
   let dx = (Math.random() - 0.5) * 8; //dx is velocity of x movement
