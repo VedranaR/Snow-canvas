@@ -53,6 +53,8 @@ window.addEventListener("mousemove", event => {
 window.addEventListener("resize", () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+
+  init();
 });
 
 let colorArray = ["#ffaa33", "#aaff33", "#33aaff", "#aa33ff", "#ff33aa"];
@@ -111,15 +113,18 @@ function Circle(x, y, dx, dy, radius) {
 //empty array of circles
 let circleArray = [];
 
-for (let i = 0; i < 800; i++) {
-  let radius = Math.random() * 3 + 1;
-  let x = Math.random() * (innerWidth - radius * 2) + radius;
-  let y = Math.random() * (innerHeight - radius * 2) + radius;
-  let dx = (Math.random() - 0.5) * 8; //dx is velocity of x movement
-  let dy = (Math.random() - 0.5) * 8; //dy is velocity of y movement
+function init() {
+  circleArray = [];
+  for (let i = 0; i < 800; i++) {
+    let radius = Math.random() * 3 + 1;
+    let x = Math.random() * (innerWidth - radius * 2) + radius;
+    let y = Math.random() * (innerHeight - radius * 2) + radius;
+    let dx = (Math.random() - 0.5) * 8; //dx is velocity of x movement
+    let dy = (Math.random() - 0.5) * 8; //dy is velocity of y movement
 
-  //pushing the newly created circle with new random params into a circle array
-  circleArray.push(new Circle(x, y, dx, dy, radius));
+    //pushing the newly created circle with new random params into a circle array
+    circleArray.push(new Circle(x, y, dx, dy, radius));
+  }
 }
 
 function animate() {
