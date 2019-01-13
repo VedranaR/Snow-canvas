@@ -53,14 +53,16 @@ function Circle(x, y, dx, dy, radius) {
   this.dy = dy;
   this.radius = radius;
 
+  //function that draws the circle according to the given params
   this.draw = function() {
     c.beginPath();
     c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-    c.strokeStyle = "red";
+    c.strokeStyle = "black";
     c.stroke();
     c.fill();
   };
 
+  //function that updates the location of a circle, creating movement
   this.update = function() {
     if (this.x + this.radius > innerWidth || this.x - this.radius < 0) {
       this.dx = -this.dx;
@@ -76,22 +78,24 @@ function Circle(x, y, dx, dy, radius) {
   };
 }
 
+//empty array of circles
 let circleArray = [];
 
 for (let i = 0; i < 100; i++) {
   let radius = 20;
   let x = Math.random() * (innerWidth - radius * 2) + radius;
   let y = Math.random() * (innerHeight - radius * 2) + radius;
-  let dx = (Math.random() - 0.5) * 15;
-  let dy = (Math.random() - 0.5) * 15;
+  let dx = (Math.random() - 0.5) * 15; //dx is velocity of x movement
+  let dy = (Math.random() - 0.5) * 15; //dy is velocity of y movement
 
+  //pushing the newly created circle with new random params into a circle array
   circleArray.push(new Circle(x, y, dx, dy, radius));
 }
 
 function animate() {
-  requestAnimationFrame(animate);
-  c.clearRect(0, 0, innerWidth, innerHeight);
-
+  requestAnimationFrame(animate); //a function calls itself, creating an indefinite movement
+  c.clearRect(0, 0, innerWidth, innerHeight); //clears previous instances of circles
+  //loops through all the circles, animating each individually
   for (let i = 0; i < circleArray.length; i++) {
     circleArray[i].update();
   }
