@@ -60,6 +60,7 @@ function Circle(x, y, dx, dy, radius) {
     c.strokeStyle = "black";
     c.stroke();
     c.fill();
+    c.fillStyle = "rgba(0, 255, 0, 0.5)";
   };
 
   //function that updates the location of a circle, creating movement
