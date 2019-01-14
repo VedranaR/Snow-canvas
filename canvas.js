@@ -137,3 +137,4 @@ function animate() {
 }
 
 animate();
+init();
